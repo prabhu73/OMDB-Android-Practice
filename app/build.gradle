@@ -11,22 +11,33 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.covid.myomdbapplication"
+        applicationId "com.myomdbapplication"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
+        buildConfigField("String", "BASE_URL", "\"http://www.omdbapi.com\"")
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    buildTypes {
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+
+        buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
 
 dependencies {
@@ -69,6 +80,8 @@ dependencies {
 
     // Material Design
     implementation "com.google.android.material:material:1.1.0"
+    // Facebook shimmer animation
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
 
     // Network components
     implementation 'com.squareup.retrofit2:retrofit:2.8.1'

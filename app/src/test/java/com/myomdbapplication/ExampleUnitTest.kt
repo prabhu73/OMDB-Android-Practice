@@ -1,4 +1,4 @@
-package com.covid.myomdbapplication
+package com.myomdbapplication
 
 import org.junit.Test
 
