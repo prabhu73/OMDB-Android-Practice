@@ -1,17 +1,20 @@
 package com.myomdbapplication.repository
 
+import com.myomdbapplication.models.MovieDetailsResponse
+import com.myomdbapplication.models.MoviesResultResponse
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface OMDBRemoteServices {
 
-    //http://www.omdbapi.com/?apikey=c577c726&s=friends&page=1 // To search for movies name friends
-    //http://www.omdbapi.com/?&apikey=c577c726&i=tt3896198 // To get particular show details
+    @GET("/")
+    suspend fun getOmdbSearchData(@Query("apiKey")apiKey: String,
+                                  @Query("s")term: String,
+                                  @Query("page")count: Int): Response<MoviesResultResponse>
 
-    @GET("/data.json")
-    suspend fun getStateWiseData(): Response<Any>
-
-    @GET("/v2/state_district_wise.json")
-    suspend fun getStateDistrictWiseData(): Response<List<Any>>
+    @GET("/")
+    suspend fun getShowDetails(@Query("apiKey")apiKey: String,
+                               @Query("i")id: String): Response<MovieDetailsResponse>
 
 }

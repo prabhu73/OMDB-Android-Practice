@@ -1,10 +1,10 @@
 package com.myomdbapplication.repository
 
 import android.content.Context
-import com.covid.myomdbapplication.BuildConfig
 import com.myomdbapplication.util.isNetworkAvailable
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
+import com.myomdbapplication.BuildConfig
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import okhttp3.Cache
@@ -32,9 +32,9 @@ val restServiceModule = module {
             .create(OMDBRemoteServices::class.java)
     }
 
-    /*single {
-        MainRepository(get())
-    }*/
+    single {
+        OmdbRemoteRepository(get())
+    }
 }
 
 fun getOkHttpClient(context: Context): OkHttpClient {
