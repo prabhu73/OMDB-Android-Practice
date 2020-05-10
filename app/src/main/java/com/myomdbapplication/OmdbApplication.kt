@@ -3,6 +3,7 @@ package com.myomdbapplication
 import android.app.Application
 import com.myomdbapplication.db.omdbModule
 import com.myomdbapplication.repository.restServiceModule
+import com.myomdbapplication.ui.omdbViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import org.koin.android.ext.koin.androidContext

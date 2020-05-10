@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".MoviesHomeFragment"
+    tools:context="ui.OmdbHomeFragment"
     android:background="@color/colorE5E5E5">
 
     <androidx.recyclerview.widget.RecyclerView

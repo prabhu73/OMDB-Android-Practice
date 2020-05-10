@@ -33,7 +33,7 @@ val restServiceModule = module {
     }
 
     single {
-        OmdbRemoteRepository(get())
+        OmdbRemoteRepository(get(), get())
     }
 }
 

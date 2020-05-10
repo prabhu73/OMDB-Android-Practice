@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.myomdbapplication.SplashFragment"
+        android:name="com.myomdbapplication.ui.SplashFragment"
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash" >
         <action
@@ -18,16 +18,16 @@
     </fragment>
     <fragment
         android:id="@+id/moviesHomeFragment"
-        android:name="com.myomdbapplication.MoviesHomeFragment"
+        android:name="com.myomdbapplication.ui.OmdbHomeFragment"
         android:label="fragment_movies_home"
-        tools:layout="@layout/fragment_movies_home" >
+        tools:layout="@layout/fragment_omdb_home" >
         <action
             android:id="@+id/action_moviesHomeFragment_to_showDetailsFragment"
             app:destination="@id/showDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/showDetailsFragment"
-        android:name="com.myomdbapplication.ShowDetailsFragment"
+        android:name="com.myomdbapplication.ui.ShowDetailsFragment"
         android:label="fragment_show_details"
         tools:layout="@layout/fragment_show_details" />
 </navigation>

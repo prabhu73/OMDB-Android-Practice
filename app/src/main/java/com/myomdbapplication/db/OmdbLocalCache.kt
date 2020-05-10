@@ -4,7 +4,6 @@ import androidx.paging.DataSource
 import com.myomdbapplication.models.MovieItem
 import java.util.concurrent.Executor
 
-
 class OmdbLocalCache(
     private val omdbDao: OmdbDao,
     private val ioExecutor: Executor

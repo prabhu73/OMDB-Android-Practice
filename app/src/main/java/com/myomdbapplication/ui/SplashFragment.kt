@@ -1,4 +1,4 @@
-package com.myomdbapplication
+package com.myomdbapplication.ui
 
 import android.os.Bundle
 import android.os.Handler

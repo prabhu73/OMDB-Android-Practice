@@ -1,9 +1,12 @@
-package com.myomdbapplication
+package com.myomdbapplication.ui
 
 import android.util.Log
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import androidx.paging.PagedList
 import com.google.gson.GsonBuilder
+import com.myomdbapplication.BuildConfig
+import com.myomdbapplication.models.MovieItem
+import com.myomdbapplication.models.MoviesResponseResult
 import com.myomdbapplication.repository.OmdbRemoteRepository
 import com.myomdbapplication.repository.ResponseState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -25,19 +28,21 @@ val omdbViewModel = module {
 @InternalCoroutinesApi
 class OmdbViewModel constructor(private val repository: OmdbRemoteRepository): ViewModel() {
 
-    fun getMoviesBySearchTerm() {
-        viewModelScope.launch {
-            repository.getMoviesBySearch(BuildConfig.API_KEY, "friends", 1).collect {
-                when(it) {
-                    is ResponseState.Failed -> {}
-                    is ResponseState.Loading -> {}
-                    is ResponseState.Success -> {
-                        Log.d("####MoviesList", GsonBuilder().create().toJson(it.data))
-                    }
-                }
-            }
-        }
+    private val queryLiveData = MutableLiveData<String>()
+    private val moviesResult: LiveData<MoviesResponseResult> = Transformations.map(queryLiveData) {
+        repository.getMoviesBySearch(it)
     }
+
+    val movies: LiveData<PagedList<MovieItem>> = Transformations.switchMap(moviesResult) { it.data }
+    val networkErrors: LiveData<String> = Transformations.switchMap(moviesResult) {
+        it.networkErrors
+    }
+
+    fun searchMovies(queryString: String) {
+        queryLiveData.postValue(queryString)
+    }
+
+    fun lastQueryValue(): String? = queryLiveData.value
 
     fun getMovieDetailsById() {
         viewModelScope.launch {

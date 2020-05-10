@@ -7,6 +7,7 @@ import androidx.room.RoomDatabase
 import com.myomdbapplication.models.MovieItem
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
+import java.util.concurrent.Executors
 
 @Database(
     entities = [MovieItem::class],
@@ -27,6 +28,10 @@ val omdbModule = module {
     fun provideOmdbDao(database: OmdbDatabase): OmdbDao =
         database.omdbDao()
 
+    fun provideOmdbLocalCache(omdbDao: OmdbDao): OmdbLocalCache =
+        OmdbLocalCache(omdbDao, Executors.newSingleThreadExecutor())
+
     single { provideOmdbDatabase(androidApplication()) }
     single { provideOmdbDao(get()) }
+    single { provideOmdbLocalCache(get()) }
 }
