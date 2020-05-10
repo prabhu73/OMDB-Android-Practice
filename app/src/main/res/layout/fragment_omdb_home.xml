@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="ui.OmdbHomeFragment"
+    tools:context=".ui.OmdbHomeFragment"
     android:background="@color/colorE5E5E5">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,21 +22,23 @@
                 android:id="@+id/searchInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp">
+                android:layout_marginEnd="@dimen/dp8"
+                android:layout_marginStart="@dimen/dp8"
+                android:layout_marginTop="@dimen/dp8"
+                android:layout_marginLeft="@dimen/dp8"
+                android:layout_marginRight="@dimen/dp8">
                 <EditText
                     android:id="@+id/searchOmdb"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/search_hint"
                     android:imeOptions="actionSearch"
+                    android:hint="@string/search_hint"
                     android:inputType="textNoSuggestions"
                     tools:text="Search OMDB"
                     android:fontFamily="@font/exo_medium"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/sp15"
+                    android:drawableStart="@drawable/ic_search"
+                    android:drawablePadding="@dimen/dp5"
                     android:textColor="@android:color/black"/>
             </com.google.android.material.textfield.TextInputLayout>
         </FrameLayout>
@@ -59,7 +61,8 @@
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/homeShimmerAnimation"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"

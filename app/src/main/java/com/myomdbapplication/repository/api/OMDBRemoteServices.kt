@@ -1,4 +1,4 @@
-package com.myomdbapplication.repository
+package com.myomdbapplication.repository.api
 
 import com.myomdbapplication.BuildConfig
 import com.myomdbapplication.models.MovieDetailsResponse

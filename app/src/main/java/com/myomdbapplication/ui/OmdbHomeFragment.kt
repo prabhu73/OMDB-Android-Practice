@@ -1,17 +1,20 @@
 package com.myomdbapplication.ui
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.KeyEvent
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.myomdbapplication.databinding.FragmentOmdbHomeBinding
 import com.myomdbapplication.ui.pagingadapters.OmdbMoviesAdapter
+import com.myomdbapplication.util.hideKeyboard
 import kotlinx.android.synthetic.main.fragment_omdb_home.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
@@ -23,7 +26,7 @@ class OmdbHomeFragment : Fragment() {
 
     private lateinit var binding: FragmentOmdbHomeBinding
     private val viewModel: OmdbViewModel by sharedViewModel()
-    private lateinit var adapter : OmdbMoviesAdapter
+    private lateinit var adapter: OmdbMoviesAdapter
 
     companion object {
         private const val QUERY = "QUERY"
@@ -46,7 +49,8 @@ class OmdbHomeFragment : Fragment() {
             findNavController().navigate(OmdbHomeFragmentDirections.actionMoviesHomeFragmentToShowDetailsFragment())
         }
         initAdapter()
-        val query = savedInstanceState?.getString(QUERY) ?: viewModel.lastQueryValue() ?: DEFAULT_QUERY
+        val query =
+            savedInstanceState?.getString(QUERY) ?: viewModel.lastQueryValue() ?: DEFAULT_QUERY
         shimmerVisibility(true)
         viewModel.searchMovies(query)
         initSearchField(query)
@@ -68,6 +72,7 @@ class OmdbHomeFragment : Fragment() {
         searchOmdb.setText(query)
         searchOmdb.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_GO) {
+                hideKeyboard(requireContext(), searchOmdb)
                 updateMoviesFromInput()
                 true
             } else {
@@ -76,12 +81,24 @@ class OmdbHomeFragment : Fragment() {
         }
         searchOmdb.setOnKeyListener { _, keyCode, event ->
             if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                hideKeyboard(requireContext(), searchOmdb)
                 updateMoviesFromInput()
                 true
             } else {
                 false
             }
         }
+        searchOmdb.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                updateMoviesFromInput()
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+        })
     }
 
     private fun updateMoviesFromInput() {

@@ -1,18 +1,19 @@
 package com.myomdbapplication.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.myomdbapplication.R
 import com.myomdbapplication.databinding.FragmentShowDetailsBinding
 import com.myomdbapplication.models.MovieDetailsResponse
-import com.myomdbapplication.repository.ResponseState
+import com.myomdbapplication.repository.api.ResponseState
 import kotlinx.android.synthetic.main.fragment_show_details.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
@@ -42,7 +43,7 @@ class ShowDetailsFragment : Fragment() {
 
     private fun initObservables() {
         viewModel.showDetails.observe(viewLifecycleOwner, Observer {
-            when(it) {
+            when (it) {
                 is ResponseState.Success -> displayUiData(it.data)
                 is ResponseState.Loading -> handleShimmerVisibility(true)
                 is ResponseState.Failed -> {
@@ -59,6 +60,7 @@ class ShowDetailsFragment : Fragment() {
         else shimmerLoadingView.stopShimmer()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun displayUiData(movieDetails: MovieDetailsResponse) {
         handleShimmerVisibility(false)
         toolbarTitle.text = movieDetails.title
@@ -69,8 +71,8 @@ class ShowDetailsFragment : Fragment() {
         showTime.text = movieDetails.runtime
         userRating.text = movieDetails.imdbRating
         showLanguage.text = movieDetails.language
-        directorDetails.text = "Director details: ${movieDetails.director}"
-        genreDetails.text = "Show Type: ${movieDetails.genre}"
+        directorDetails.text = "${resources.getString(R.string.director_details)} ${movieDetails.director}"
+        genreDetails.text = "${resources.getString(R.string.type)} ${movieDetails.genre}"
         showDescription.text = movieDetails.plot
         showActors.text = movieDetails.actors
         writerDetails.text = movieDetails.writer

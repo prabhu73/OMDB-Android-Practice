@@ -7,7 +7,7 @@ import com.myomdbapplication.models.MovieDetailsResponse
 import com.myomdbapplication.models.MovieItem
 import com.myomdbapplication.models.MoviesResponseResult
 import com.myomdbapplication.repository.OmdbRemoteRepository
-import com.myomdbapplication.repository.ResponseState
+import com.myomdbapplication.repository.api.ResponseState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collect

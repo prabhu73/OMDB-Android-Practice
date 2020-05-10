@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagedList
 import com.myomdbapplication.db.OmdbLocalCache
 import com.myomdbapplication.models.MovieItem
+import com.myomdbapplication.repository.api.OMDBRemoteServices
+import com.myomdbapplication.repository.api.searchOmdbByQuery
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 

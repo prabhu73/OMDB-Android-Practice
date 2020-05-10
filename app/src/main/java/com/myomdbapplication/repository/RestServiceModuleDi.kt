@@ -1,10 +1,11 @@
 package com.myomdbapplication.repository
 
 import android.content.Context
-import com.myomdbapplication.util.isNetworkAvailable
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
 import com.myomdbapplication.BuildConfig
+import com.myomdbapplication.repository.api.OMDBRemoteServices
+import com.myomdbapplication.util.isNetworkAvailable
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import okhttp3.Cache

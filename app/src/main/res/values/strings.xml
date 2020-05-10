@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">My OMDB Application</string>
 
-    <string name="search_hint">Friend</string>
+    <string name="search_hint">Search OMDB</string>
+    <string name="image_view_content">Content</string>
+    <string name="show_content">Show content:</string>
+    <string name="writer_details">Writer Details:</string>
+    <string name="type">Type:</string>
+    <string name="released">Released:</string>
+    <string name="director_details">Director details:</string>
 </resources>

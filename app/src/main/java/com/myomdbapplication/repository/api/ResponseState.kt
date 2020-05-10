@@ -1,4 +1,4 @@
-package com.myomdbapplication.repository
+package com.myomdbapplication.repository.api
 
 sealed class ResponseState<T> {
 

@@ -1,4 +1,4 @@
-package com.myomdbapplication.repository
+package com.myomdbapplication.repository.api
 
 import androidx.annotation.MainThread
 import kotlinx.coroutines.ExperimentalCoroutinesApi

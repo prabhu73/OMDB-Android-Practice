@@ -4,8 +4,8 @@
     android:layout_height="wrap_content">
 
     <View
-        android:layout_width="80dp"
-        android:layout_height="110dp"
+        android:layout_width="@dimen/dp80"
+        android:layout_height="@dimen/dp110"
         android:background="@color/colorE5E5E5"/>
 
     <LinearLayout
@@ -14,24 +14,24 @@
         android:orientation="vertical">
         <View
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="@dimen/dp20"
             android:background="@color/colorE5E5E5"/>
         <View
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="@dimen/dp20"
             android:background="@color/colorE5E5E5"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="@dimen/dp10"/>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="@dimen/dp20"
             android:background="@color/colorE5E5E5"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="@dimen/dp10"/>
         <View
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="@dimen/dp20"
             android:background="@color/colorE5E5E5"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="@dimen/dp10"/>
 
     </LinearLayout>
 
