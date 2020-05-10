@@ -44,6 +44,7 @@ data class MovieDetailsResponse(
     @SerializedName("Poster") val poster: String,
     @SerializedName("Type") val type: String,
     @SerializedName("imdbID") val imdbID: String,
+    @SerializedName("Language") val language: String,
     @SerializedName("imdbRating") val imdbRating: String,
     @SerializedName("imdbVotes") val imdbVotes: String
 )

@@ -23,7 +23,7 @@ android {
         versionCode 1
         versionName "1.0"
         buildConfigField("String", "BASE_URL", "\"http://www.omdbapi.com\"")
-        buildConfigField("String", "API_KEY", "\"add your omdb api key\"")
+        buildConfigField("String", "API_KEY", "\"c577c726\"")
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

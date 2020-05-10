@@ -1,12 +1,9 @@
 package com.myomdbapplication.repository
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.paging.LivePagedListBuilder
 import com.myomdbapplication.db.OmdbLocalCache
 import com.myomdbapplication.models.MovieDetailsResponse
 import com.myomdbapplication.models.MoviesResponseResult
-import com.myomdbapplication.models.MoviesResultResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
@@ -18,7 +15,8 @@ import retrofit2.Response
 @InternalCoroutinesApi
 class OmdbRemoteRepository(
     private val apiService: OMDBRemoteServices,
-    private val cache: OmdbLocalCache) {
+    private val cache: OmdbLocalCache
+) {
 
     fun getMoviesBySearch(searchTerm: String): MoviesResponseResult {
         // Single truth data (Locally stored data will be passed to pagging library)

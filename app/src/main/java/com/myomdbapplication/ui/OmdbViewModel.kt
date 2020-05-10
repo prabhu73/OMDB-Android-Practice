@@ -1,10 +1,9 @@
 package com.myomdbapplication.ui
 
-import android.util.Log
 import androidx.lifecycle.*
 import androidx.paging.PagedList
-import com.google.gson.GsonBuilder
 import com.myomdbapplication.BuildConfig
+import com.myomdbapplication.models.MovieDetailsResponse
 import com.myomdbapplication.models.MovieItem
 import com.myomdbapplication.models.MoviesResponseResult
 import com.myomdbapplication.repository.OmdbRemoteRepository
@@ -26,7 +25,10 @@ val omdbViewModel = module {
 
 @ExperimentalCoroutinesApi
 @InternalCoroutinesApi
-class OmdbViewModel constructor(private val repository: OmdbRemoteRepository): ViewModel() {
+class OmdbViewModel constructor(private val repository: OmdbRemoteRepository) : ViewModel() {
+
+    private val _showDetailsRes = MutableLiveData<ResponseState<MovieDetailsResponse>>()
+    val showDetails: LiveData<ResponseState<MovieDetailsResponse>> get() = _showDetailsRes
 
     private val queryLiveData = MutableLiveData<String>()
     private val moviesResult: LiveData<MoviesResponseResult> = Transformations.map(queryLiveData) {
@@ -44,16 +46,17 @@ class OmdbViewModel constructor(private val repository: OmdbRemoteRepository): V
 
     fun lastQueryValue(): String? = queryLiveData.value
 
+    private var _omdbId = String()
+    var omdbId: String
+        get() = _omdbId
+        set(value) {
+            _omdbId = value
+        }
+
     fun getMovieDetailsById() {
         viewModelScope.launch {
-            repository.getMovieDetailsById(BuildConfig.API_KEY, "tt0108778").collect {
-                when(it) {
-                    is ResponseState.Failed -> {}
-                    is ResponseState.Loading -> {}
-                    is ResponseState.Success -> {
-                        Log.d("####MoviesDetails", GsonBuilder().create().toJson(it.data))
-                    }
-                }
+            repository.getMovieDetailsById(BuildConfig.API_KEY, omdbId).collect {
+                _showDetailsRes.postValue(it)
             }
         }
     }
