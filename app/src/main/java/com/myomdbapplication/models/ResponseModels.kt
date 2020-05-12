@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName
  * Search result response
  */
 
-data class MoviesResultResponse(
+data class OmdbListResponse(
     @SerializedName("Response") val response: String,
     @SerializedName("Search") val movies: List<MovieItem>,
     @SerializedName("totalResults") val totalResults: String

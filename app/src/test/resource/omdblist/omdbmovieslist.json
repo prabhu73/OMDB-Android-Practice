@@ -1,0 +1,76 @@
+{
+  "Search": [
+    {
+      "Title": "Seeking a Friend for the End of the World",
+      "Year": "2012",
+      "imdbID": "tt1307068",
+      "Type": "movie",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BMTk4MDQ1NzE3N15BMl5BanBnXkFtZTcwMjA0MDkzNw@@._V1_SX300.jpg"
+    },
+    {
+      "Title": "Friend Request",
+      "Year": "2016",
+      "imdbID": "tt3352390",
+      "Type": "movie",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BNGFhZjQ5OTEtY2FlMy00OWM5LTlkYjAtZGUyNTE2YmVkYjc0XkEyXkFqcGdeQXVyNjkwMzU3NDI@._V1_SX300.jpg"
+    },
+    {
+      "Title": "My Friend Dahmer",
+      "Year": "2017",
+      "imdbID": "tt2291540",
+      "Type": "movie",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BN2UxZDJlYjAtNGQ0OC00MWE4LTkzMjktMDAyNTg2ZTVkZjQ1XkEyXkFqcGdeQXVyMTc2MDc0Nw@@._V1_SX300.jpg"
+    },
+    {
+      "Title": "The American Friend",
+      "Year": "1977",
+      "imdbID": "tt0075675",
+      "Type": "movie",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BOWFlZDA1YTQtMGJjYy00OTVlLTkxODUtNTgxNWNiMTZkYmExXkEyXkFqcGdeQXVyNjc1NTYyMjg@._V1_SX300.jpg"
+    },
+    {
+      "Title": "Who Finds a Friend Finds a Treasure",
+      "Year": "1981",
+      "imdbID": "tt0085327",
+      "Type": "movie",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BNWM4OTJjODYtNjgxZC00ZGYwLTkxZGMtMjRjODIyMTkyMDIwXkEyXkFqcGdeQXVyNzY3MTc5NTE@._V1_SX300.jpg"
+    },
+    {
+      "Title": "With a Friend Like Harry...",
+      "Year": "2000",
+      "imdbID": "tt0216800",
+      "Type": "movie",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BMTgxMTE4MTYzNl5BMl5BanBnXkFtZTYwNTE4OTI5._V1_SX300.jpg"
+    },
+    {
+      "Title": "My Brilliant Friend",
+      "Year": "2018–",
+      "imdbID": "tt7278862",
+      "Type": "series",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BODU3Nzg5NGMtOTE2MS00YWQ0LTgyYzktMWM3YjNmYjlmZTliXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg"
+    },
+    {
+      "Title": "Deadly Friend",
+      "Year": "1986",
+      "imdbID": "tt0090917",
+      "Type": "movie",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BNjQ0M2Y3ODktOTZhOC00Yzg4LWE5NGQtMDQyMmRjOWQzYTYxXkEyXkFqcGdeQXVyNTQ4ODA2NzQ@._V1_SX300.jpg"
+    },
+    {
+      "Title": "My Best Friend",
+      "Year": "2006",
+      "imdbID": "tt0778784",
+      "Type": "movie",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BMTc4MzQ4Mzk4Ml5BMl5BanBnXkFtZTcwNDYzODA1MQ@@._V1_SX300.jpg"
+    },
+    {
+      "Title": "Your Friend the Rat",
+      "Year": "2007",
+      "imdbID": "tt1134859",
+      "Type": "movie",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BMTcyOTU4MTM0OF5BMl5BanBnXkFtZTgwODQzMDgwMjE@._V1_SX300.jpg"
+    }
+  ],
+  "totalResults": "1103",
+  "Response": "True"
+}

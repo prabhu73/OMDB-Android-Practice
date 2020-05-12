@@ -25,6 +25,7 @@ import kotlinx.android.synthetic.main.fragment_omdb_home.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import org.koin.android.viewmodel.ext.android.sharedViewModel
+import java.lang.NumberFormatException
 
 @InternalCoroutinesApi
 @ExperimentalCoroutinesApi
@@ -57,7 +58,6 @@ class OmdbHomeFragment : Fragment() {
         }
         initAdapter()
         val query = savedInstanceState?.getString(QUERY) ?: viewModel.lastQueryValue() ?: DEFAULT_QUERY
-        Log.d("####Network", "${requireContext().isNetworkAvailable()}")
         if (viewModel.isNavigatedToDetailsScreen) viewModel.isNavigatedToDetailsScreen = false
         else {
             shimmerVisibility(true)
@@ -77,26 +77,20 @@ class OmdbHomeFragment : Fragment() {
             shimmerVisibility(false)
             if (it.status == Status.FAILED) {
                 it.msg?.let { msg ->
-                    if (msg.contains("504"))
-                        loadNoNetworkScreen()
+                    try {
+                        when(msg.toInt()) {
+                            in 500..599 -> (activity as OmdbMainActivity)
+                                .displaySnackBar(R.string.enable_internet_text, R.string.enable,
+                                    SnackbarAction.NETWORK_NOT_AVAILABLE)
+                            in 400..499 -> viewModel.retryBoundaryCall()
+                        }
+                    } catch (e: NumberFormatException) {
+                        e.printStackTrace()
+                    }
                 }
                 Toast.makeText(context, "\uD83D\uDE28 Wooops $it", Toast.LENGTH_LONG).show()
             }
         })
-    }
-
-    private fun loadNoNetworkScreen() {
-        val make =
-            Snackbar.make(requireView(), R.string.enable_internet_text, Snackbar.LENGTH_INDEFINITE)
-        make.setAction(R.string.enable) {
-            startActivity(
-                Intent("android.settings.WIRELESS_SETTINGS")
-                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            )
-            viewModel.isNetworkNotAvailable = true
-            if (make.isShown) make.dismiss()
-        }
-        make.show()
     }
 
     private fun initSearchField(query: String) {

@@ -3,7 +3,7 @@ package com.myomdbapplication.repository.api
 import com.myomdbapplication.BuildConfig
 import com.myomdbapplication.models.MovieDetailsResponse
 import com.myomdbapplication.models.MovieItem
-import com.myomdbapplication.models.MoviesResultResponse
+import com.myomdbapplication.models.OmdbListResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,21 +20,19 @@ fun searchOmdbByQuery(
     onError: (String) -> Unit
 ) {
     service.getOmdbSearchData(BuildConfig.API_KEY, query, pageNum).enqueue(
-        object : Callback<MoviesResultResponse> {
-            override fun onFailure(call: Call<MoviesResultResponse>, t: Throwable) {
+        object : Callback<OmdbListResponse> {
+            override fun onFailure(call: Call<OmdbListResponse>, t: Throwable) {
                 onError(t.message ?: "unknown error")
             }
 
             override fun onResponse(
-                call: Call<MoviesResultResponse>,
-                response: Response<MoviesResultResponse>
+                call: Call<OmdbListResponse>,
+                response: Response<OmdbListResponse>
             ) {
                 if (response.isSuccessful) {
                     val repos = response.body()?.movies ?: emptyList()
                     onSuccess(repos)
-                } else {
-                    onError(response.errorBody()?.string() + response.code() + response.message())
-                }
+                } else onError("${response.code()}")
             }
         }
     )
@@ -47,7 +45,7 @@ interface OMDBRemoteServices {
         @Query("apiKey") apiKey: String,
         @Query("s") term: String,
         @Query("page") count: Int
-    ): Call<MoviesResultResponse>
+    ): Call<OmdbListResponse>
 
     @GET("/")
     suspend fun getShowDetails(

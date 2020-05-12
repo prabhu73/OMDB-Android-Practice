@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -65,8 +66,8 @@ class ShowDetailsFragment : Fragment() {
         handleShimmerVisibility(false)
         toolbarTitle.text = movieDetails.title
         backNavIcon.setOnClickListener { findNavController().popBackStack() }
-        Glide.with(showPosterImage).load(movieDetails.poster).placeholder(R.drawable.ic_default_movie_icon).centerCrop().into(showPosterImage)
-        Glide.with(showSmallPoster).load(movieDetails.poster).placeholder(R.drawable.ic_default_movie_icon).centerCrop().into(showSmallPoster)
+        setImageResource(showPosterImage, movieDetails.poster)
+        setImageResource(showSmallPoster, movieDetails.poster)
         releasedDate.text = movieDetails.released
         showTime.text = movieDetails.runtime
         userRating.text = movieDetails.imdbRating
@@ -76,5 +77,13 @@ class ShowDetailsFragment : Fragment() {
         showDescription.text = movieDetails.plot
         showActors.text = movieDetails.actors
         writerDetails.text = movieDetails.writer
+    }
+
+    private fun setImageResource(imageView: ImageView, imageUrl: String) {
+        Glide.with(imageView)
+            .load(imageUrl)
+            .placeholder(R.drawable.ic_default_movie_icon)
+            .centerCrop()
+            .into(imageView)
     }
 }

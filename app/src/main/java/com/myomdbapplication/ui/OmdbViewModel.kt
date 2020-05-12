@@ -50,6 +50,8 @@ class OmdbViewModel constructor(private val repository: OmdbRemoteRepository) : 
         repository.getMoviesBySearch(it)
     }
 
+    val connectivityState = MutableLiveData<Boolean>()
+
     val movies: LiveData<PagedList<MovieItem>> = Transformations.switchMap(omdbPaging) { it.data }
     val networkErrors: LiveData<NetworkState> = Transformations.switchMap(omdbPaging) {
         it.networkErrors

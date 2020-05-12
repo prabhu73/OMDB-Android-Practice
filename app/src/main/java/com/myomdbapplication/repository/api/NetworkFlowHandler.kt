@@ -9,25 +9,18 @@ import retrofit2.Response
 @InternalCoroutinesApi
 @ExperimentalCoroutinesApi
 abstract class NetworkFlowHandler<T> {
-
     fun asFlows() = flow<ResponseState<T>> {
-
         // Emit loading state
         emit(ResponseState.loading())
-
         try {
-
             // Fetch data from remote
             val apiResponse = fetchRemoteData()
 
             // Fetch response body
             val responseBody = apiResponse.body()
 
-            if (apiResponse.isSuccessful && responseBody != null) {
-                emit(ResponseState.success(responseBody))
-            } else {
-                emit(ResponseState.failed(apiResponse.message()))
-            }
+            if (apiResponse.isSuccessful && responseBody != null) emit(ResponseState.success(responseBody))
+            else emit(ResponseState.failed("${apiResponse.code()}"))
 
         } catch (e: Exception) {
             emit(ResponseState.failed("Remote data fetch error. Please try after some time."))
