@@ -33,7 +33,7 @@ fun searchOmdbByQuery(
                     val repos = response.body()?.movies ?: emptyList()
                     onSuccess(repos)
                 } else {
-                    onError(response.errorBody()?.string() ?: "Unknown error")
+                    onError(response.errorBody()?.string() + response.code() + response.message())
                 }
             }
         }

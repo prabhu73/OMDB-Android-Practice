@@ -5,8 +5,9 @@ import androidx.paging.PagedList
 import com.myomdbapplication.BuildConfig
 import com.myomdbapplication.models.MovieDetailsResponse
 import com.myomdbapplication.models.MovieItem
-import com.myomdbapplication.models.MoviesResponseResult
+import com.myomdbapplication.models.OmdbPagingResponse
 import com.myomdbapplication.repository.OmdbRemoteRepository
+import com.myomdbapplication.repository.api.NetworkState
 import com.myomdbapplication.repository.api.ResponseState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
@@ -17,9 +18,11 @@ import org.koin.dsl.module
 
 @ExperimentalCoroutinesApi
 @InternalCoroutinesApi
-val omdbViewModel = module {
-    viewModel {
-        OmdbViewModel(get())
+val omdbViewModel by lazy {
+    module {
+        viewModel {
+            OmdbViewModel(get())
+        }
     }
 }
 
@@ -27,16 +30,28 @@ val omdbViewModel = module {
 @InternalCoroutinesApi
 class OmdbViewModel constructor(private val repository: OmdbRemoteRepository) : ViewModel() {
 
+    private var _isNetworkNotAvailable = false
+    var isNetworkNotAvailable : Boolean get() = _isNetworkNotAvailable
+    set(value) {
+        _isNetworkNotAvailable = value
+    }
+
+    private var _isNavigatedToDetailsScreen = false
+    var isNavigatedToDetailsScreen : Boolean get() = _isNavigatedToDetailsScreen
+    set(value) {
+        _isNavigatedToDetailsScreen = value
+    }
+
     private val _showDetailsRes = MutableLiveData<ResponseState<MovieDetailsResponse>>()
     val showDetails: LiveData<ResponseState<MovieDetailsResponse>> get() = _showDetailsRes
 
     private val queryLiveData = MutableLiveData<String>()
-    private val moviesResult: LiveData<MoviesResponseResult> = Transformations.map(queryLiveData) {
+    private val omdbPaging: LiveData<OmdbPagingResponse> = Transformations.map(queryLiveData) {
         repository.getMoviesBySearch(it)
     }
 
-    val movies: LiveData<PagedList<MovieItem>> = Transformations.switchMap(moviesResult) { it.data }
-    val networkErrors: LiveData<String> = Transformations.switchMap(moviesResult) {
+    val movies: LiveData<PagedList<MovieItem>> = Transformations.switchMap(omdbPaging) { it.data }
+    val networkErrors: LiveData<NetworkState> = Transformations.switchMap(omdbPaging) {
         it.networkErrors
     }
 
@@ -45,6 +60,8 @@ class OmdbViewModel constructor(private val repository: OmdbRemoteRepository) : 
     }
 
     fun lastQueryValue(): String? = queryLiveData.value
+
+    fun retryBoundaryCall() = repository.retryBoundaryCallback()
 
     private var _omdbId = String()
     var omdbId: String

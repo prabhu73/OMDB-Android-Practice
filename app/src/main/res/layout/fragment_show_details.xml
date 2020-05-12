@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/ic_app_background"
     tools:context="ui.ShowDetailsFragment">
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        android:background="@color/colorE5E5E5">
+        android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/showDetailsAppBar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp300"
+            android:background="#0E273D"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:expandedTitleGravity="top"
-                app:contentScrim="@color/colorPrimaryDark"
+                app:contentScrim="#0E273D"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,19 +36,29 @@
                         android:id="@+id/showPosterImage"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginBottom="@dimen/dp70"
-                        android:src="@drawable/ic_launcher_foreground"
-                        android:contentDescription="@string/image_view_content" />
+                        android:layout_marginEnd="@dimen/dp5"
+                        android:layout_marginBottom="75dp"
+                        android:contentDescription="@string/image_view_content"
+                        android:src="@drawable/ic_launcher_foreground" />
 
-                    <ImageView
-                        android:id="@+id/showSmallPoster"
+                    <FrameLayout
+                        android:id="@+id/fl2"
                         android:layout_width="@dimen/dp70"
                         android:layout_height="@dimen/dp100"
                         android:layout_marginStart="@dimen/dp24"
-                        android:src="@drawable/ic_launcher_foreground"
+                        android:layout_marginBottom="@dimen/dp5"
+                        android:background="@drawable/drawable_rounded_blue_stroke_corner"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        android:contentDescription="@string/image_view_content"/>
+                        app:layout_constraintStart_toStartOf="parent">
+
+                        <ImageView
+                            android:id="@+id/showSmallPoster"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="@dimen/dp5"
+                            android:contentDescription="@string/image_view_content"
+                            android:src="@drawable/ic_launcher_foreground" />
+                    </FrameLayout>
 
                     <TextView
                         android:id="@+id/releasedDate"
@@ -55,30 +66,30 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp20"
                         android:layout_marginTop="@dimen/dp40"
+                        android:layout_marginEnd="@dimen/dp10"
                         android:drawableStart="@drawable/ic_calender"
                         android:drawablePadding="@dimen/dp10"
                         android:fontFamily="@font/exo_medium"
                         android:gravity="center_vertical"
-                        android:textColor="@color/color1A95AD"
+                        android:textColor="@color/colorPrimary"
                         android:textSize="@dimen/sp12"
-                        android:layout_marginEnd="@dimen/dp10"
-                        app:layout_constraintStart_toEndOf="@+id/showSmallPoster"
-                        app:layout_constraintTop_toTopOf="@+id/showSmallPoster"
                         app:layout_constraintEnd_toStartOf="@+id/userRating"
-                        app:layout_constraintHorizontal_chainStyle="spread_inside"/>
+                        app:layout_constraintHorizontal_chainStyle="spread_inside"
+                        app:layout_constraintStart_toEndOf="@+id/fl2"
+                        app:layout_constraintTop_toTopOf="@+id/fl2" />
 
                     <TextView
                         android:id="@+id/showTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp6"
-                        android:layout_marginBottom="@dimen/dp10"
                         android:layout_marginEnd="@dimen/dp10"
+                        android:layout_marginBottom="@dimen/dp10"
                         android:drawableStart="@drawable/ic_show_time"
                         android:drawablePadding="@dimen/dp10"
                         android:fontFamily="@font/exo_medium"
                         android:gravity="center_vertical"
-                        android:textColor="@color/color1A95AD"
+                        android:textColor="@color/colorPrimary"
                         android:textSize="@dimen/sp12"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/showLanguage"
@@ -95,11 +106,11 @@
                         android:drawablePadding="@dimen/dp10"
                         android:fontFamily="@font/exo_semibold"
                         android:gravity="center"
-                        android:textColor="@color/color1A95AD"
+                        android:textColor="@color/colorPrimary"
                         android:textSize="@dimen/sp12"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/releasedDate"
-                        app:layout_constraintStart_toEndOf="@+id/releasedDate"/>
+                        app:layout_constraintStart_toEndOf="@+id/releasedDate"
+                        app:layout_constraintTop_toTopOf="@+id/releasedDate" />
 
                     <TextView
                         android:id="@+id/showLanguage"
@@ -110,7 +121,7 @@
                         android:drawablePadding="@dimen/dp10"
                         android:fontFamily="@font/exo_bold"
                         android:gravity="center"
-                        android:textColor="@color/color1A95AD"
+                        android:textColor="@color/colorPrimary"
                         android:textSize="@dimen/sp12"
                         app:layout_constraintBottom_toBottomOf="@+id/showTime"
                         app:layout_constraintEnd_toEndOf="@+id/userRating"
@@ -124,26 +135,27 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     app:layout_collapseMode="pin">
+
                     <ImageView
                         android:id="@+id/backNavIcon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_back_arrow"
+                        android:contentDescription="@string/image_view_content"
                         android:padding="@dimen/dp10"
-                        android:tint="@color/color1A95AD"
-                        android:contentDescription="@string/image_view_content"/>
+                        android:src="@drawable/ic_back_arrow"
+                        android:tint="@color/colorPrimary" />
 
                     <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/toolbarTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/toolbarTitle"
-                        android:textColor="@color/color1A95AD"
-                        android:textSize="@dimen/sp18"
-                        android:fontFamily="@font/exo_bold"
                         android:layout_marginStart="@dimen/dp20"
                         android:layout_marginEnd="@dimen/dp16"
+                        android:ellipsize="marquee"
+                        android:fontFamily="@font/exo_bold"
                         android:singleLine="true"
-                        android:ellipsize="marquee"/>
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/sp18" />
                 </androidx.appcompat.widget.Toolbar>
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -153,8 +165,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fillViewport="true"
-            android:background="@color/colorE5E5E5"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -164,95 +176,95 @@
                     android:id="@+id/directorDetails"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:textSize="@dimen/sp16"
                     android:fontFamily="@font/exo_bold"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@color/color1A95AD"
+                    android:textSize="@dimen/sp16"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/genreDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/directorDetails"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="@dimen/dp10"
                     android:fontFamily="@font/exo_semibold"
+                    android:textColor="@color/color1A95AD"
                     android:textSize="@dimen/sp15"
-                    android:textColor="@android:color/black"
-                    android:layout_marginTop="@dimen/dp10" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/directorDetails" />
 
                 <TextView
                     android:id="@+id/showActors"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/genreDetails"
                     android:layout_marginTop="@dimen/dp16"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@drawable/drawable_rounded_blue_stroke_corner"
                     android:drawableStart="@drawable/ic_actor"
                     android:drawablePadding="@dimen/dp10"
-                    android:textSize="@dimen/sp15"
                     android:fontFamily="@font/exo_semibold"
-                    android:textColor="@android:color/black"
                     android:gravity="center_vertical"
-                    android:background="@drawable/drawable_white_rounded_corner_background"
-                    android:padding="@dimen/dp10" />
+                    android:padding="@dimen/dp10"
+                    android:textColor="@color/color1A95AD"
+                    android:textSize="@dimen/sp15"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/genreDetails" />
 
                 <TextView
                     android:id="@+id/tv3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/showActors"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:textSize="@dimen/sp16"
+                    android:layout_marginTop="@dimen/dp16"
                     android:fontFamily="@font/exo_bold"
-                    android:textColor="@android:color/black"
                     android:text="@string/show_content"
-                    android:layout_marginTop="@dimen/dp16"/>
+                    android:textColor="@color/color1A95AD"
+                    android:textSize="@dimen/sp16"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/showActors" />
 
                 <TextView
                     android:id="@+id/showDescription"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv3"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/sp15"
-                    android:fontFamily="@font/exo_semibold"
                     android:layout_marginTop="@dimen/dp6"
-                    android:background="@drawable/drawable_white_rounded_corner_background"
-                    android:padding="@dimen/dp10"/>
+                    android:background="@drawable/drawable_rounded_blue_stroke_corner"
+                    android:fontFamily="@font/exo_semibold"
+                    android:padding="@dimen/dp10"
+                    android:textColor="@color/color1A95AD"
+                    android:textSize="@dimen/sp15"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv3" />
 
                 <TextView
                     android:id="@+id/tv4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/showDescription"
-                    app:layout_constraintStart_toStartOf="@+id/showDescription"
-                    app:layout_constraintEnd_toEndOf="@+id/showDescription"
-                    android:textSize="@dimen/sp16"
-                    android:text="@string/writer_details"
-                    android:textColor="@android:color/black"
+                    android:layout_marginTop="@dimen/dp16"
                     android:fontFamily="@font/exo_bold"
-                    android:layout_marginTop="@dimen/dp16"/>
+                    android:text="@string/writer_details"
+                    android:textColor="@color/color1A95AD"
+                    android:textSize="@dimen/sp16"
+                    app:layout_constraintEnd_toEndOf="@+id/showDescription"
+                    app:layout_constraintStart_toStartOf="@+id/showDescription"
+                    app:layout_constraintTop_toBottomOf="@+id/showDescription" />
 
                 <TextView
                     android:id="@+id/writerDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/tv4"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:textSize="@dimen/sp15"
-                    android:textColor="@android:color/black"
-                    android:fontFamily="@font/exo_medium"
                     android:layout_marginTop="@dimen/dp5"
-                    android:background="@drawable/drawable_white_rounded_corner_background"
-                    android:padding="@dimen/dp10"/>
+                    android:background="@drawable/drawable_rounded_blue_stroke_corner"
+                    android:fontFamily="@font/exo_medium"
+                    android:padding="@dimen/dp10"
+                    android:textColor="@color/color1A95AD"
+                    android:textSize="@dimen/sp15"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv4" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
@@ -262,37 +274,42 @@
         android:id="@+id/shimmerLoadingView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:shimmer_duration="600"
-        android:visibility="gone">
+        android:visibility="gone"
+        app:shimmer_duration="600">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp300"
-                android:background="@color/colorE5E5E5"/>
+                android:background="@color/colorE5E5E5" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp120"
                 android:layout_marginTop="@dimen/dp16"
-                android:background="@color/colorE5E5E5"/>
+                android:background="@color/colorE5E5E5" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp120"
                 android:layout_marginTop="@dimen/dp16"
-                android:background="@color/colorE5E5E5"/>
+                android:background="@color/colorE5E5E5" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp100"
                 android:layout_marginTop="@dimen/dp16"
-                android:background="@color/colorE5E5E5"/>
+                android:background="@color/colorE5E5E5" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp100"
                 android:layout_marginTop="@dimen/dp16"
-                android:background="@color/colorE5E5E5"/>
+                android:background="@color/colorE5E5E5" />
         </LinearLayout>
 
     </com.facebook.shimmer.ShimmerFrameLayout>

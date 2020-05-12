@@ -27,7 +27,10 @@ class SplashFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        delayedNavigation()
+    }
 
+    private fun delayedNavigation() {
         Handler().postDelayed({
             CoroutineScope(Dispatchers.Main).launch {
                 findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToMoviesHomeFragment())

@@ -65,9 +65,9 @@ class ShowDetailsFragment : Fragment() {
         handleShimmerVisibility(false)
         toolbarTitle.text = movieDetails.title
         backNavIcon.setOnClickListener { findNavController().popBackStack() }
-        Glide.with(showPosterImage).load(movieDetails.poster).into(showPosterImage)
-        Glide.with(showSmallPoster).load(movieDetails.poster).into(showSmallPoster)
-        releasedDate.text = movieDetails.year
+        Glide.with(showPosterImage).load(movieDetails.poster).placeholder(R.drawable.ic_default_movie_icon).centerCrop().into(showPosterImage)
+        Glide.with(showSmallPoster).load(movieDetails.poster).placeholder(R.drawable.ic_default_movie_icon).centerCrop().into(showSmallPoster)
+        releasedDate.text = movieDetails.released
         showTime.text = movieDetails.runtime
         userRating.text = movieDetails.imdbRating
         showLanguage.text = movieDetails.language

@@ -4,13 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.SplashFragment"
-    android:background="@color/color1A95AD">
+    android:background="@drawable/ic_app_background">
 
     <ImageView
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/dp120"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_launcher_foreground"
-        android:layout_gravity="center"
-        android:tint="@color/colorPrimary"/>
+        android:src="@drawable/ic_default_movie_icon"
+        android:layout_gravity="center"/>
 
 </FrameLayout>

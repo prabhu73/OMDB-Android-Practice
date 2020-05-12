@@ -14,13 +14,14 @@
             android:id="@+id/action_splashFragment_to_moviesHomeFragment"
             app:destination="@id/moviesHomeFragment"
             app:popUpTo="@id/splashFragment"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true"
+            app:launchSingleTop="true"/>
     </fragment>
     <fragment
         android:id="@+id/moviesHomeFragment"
         android:name="com.myomdbapplication.ui.OmdbHomeFragment"
         android:label="fragment_movies_home"
-        tools:layout="@layout/fragment_omdb_home" >
+        tools:layout="@layout/fragment_omdb_home">
         <action
             android:id="@+id/action_moviesHomeFragment_to_showDetailsFragment"
             app:destination="@id/showDetailsFragment" />

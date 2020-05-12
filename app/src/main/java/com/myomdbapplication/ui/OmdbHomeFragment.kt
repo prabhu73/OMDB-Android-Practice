@@ -1,8 +1,10 @@
 package com.myomdbapplication.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -12,9 +14,13 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
+import com.myomdbapplication.R
 import com.myomdbapplication.databinding.FragmentOmdbHomeBinding
+import com.myomdbapplication.ext.hideKeyboard
+import com.myomdbapplication.ext.isNetworkAvailable
+import com.myomdbapplication.repository.api.Status
 import com.myomdbapplication.ui.pagingadapters.OmdbMoviesAdapter
-import com.myomdbapplication.util.hideKeyboard
 import kotlinx.android.synthetic.main.fragment_omdb_home.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
@@ -46,13 +52,18 @@ class OmdbHomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         adapter = OmdbMoviesAdapter {
             viewModel.omdbId = it.imdbID
+            viewModel.isNavigatedToDetailsScreen = true
             findNavController().navigate(OmdbHomeFragmentDirections.actionMoviesHomeFragmentToShowDetailsFragment())
         }
         initAdapter()
-        val query =
-            savedInstanceState?.getString(QUERY) ?: viewModel.lastQueryValue() ?: DEFAULT_QUERY
-        shimmerVisibility(true)
-        viewModel.searchMovies(query)
+        val query = savedInstanceState?.getString(QUERY) ?: viewModel.lastQueryValue() ?: DEFAULT_QUERY
+        Log.d("####Network", "${requireContext().isNetworkAvailable()}")
+        if (viewModel.isNavigatedToDetailsScreen) viewModel.isNavigatedToDetailsScreen = false
+        else {
+            shimmerVisibility(true)
+            if (viewModel.isNetworkNotAvailable) viewModel.retryBoundaryCall()
+            else viewModel.searchMovies(query)
+        }
         initSearchField(query)
     }
 
@@ -64,15 +75,35 @@ class OmdbHomeFragment : Fragment() {
         })
         viewModel.networkErrors.observe(viewLifecycleOwner, Observer {
             shimmerVisibility(false)
-            Toast.makeText(context, "\uD83D\uDE28 Wooops $it", Toast.LENGTH_LONG).show()
+            if (it.status == Status.FAILED) {
+                it.msg?.let { msg ->
+                    if (msg.contains("504"))
+                        loadNoNetworkScreen()
+                }
+                Toast.makeText(context, "\uD83D\uDE28 Wooops $it", Toast.LENGTH_LONG).show()
+            }
         })
+    }
+
+    private fun loadNoNetworkScreen() {
+        val make =
+            Snackbar.make(requireView(), R.string.enable_internet_text, Snackbar.LENGTH_INDEFINITE)
+        make.setAction(R.string.enable) {
+            startActivity(
+                Intent("android.settings.WIRELESS_SETTINGS")
+                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            )
+            viewModel.isNetworkNotAvailable = true
+            if (make.isShown) make.dismiss()
+        }
+        make.show()
     }
 
     private fun initSearchField(query: String) {
         searchOmdb.setText(query)
         searchOmdb.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_GO) {
-                hideKeyboard(requireContext(), searchOmdb)
+                requireContext().hideKeyboard(searchOmdb)
                 updateMoviesFromInput()
                 true
             } else {
@@ -81,7 +112,7 @@ class OmdbHomeFragment : Fragment() {
         }
         searchOmdb.setOnKeyListener { _, keyCode, event ->
             if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-                hideKeyboard(requireContext(), searchOmdb)
+                requireContext().hideKeyboard(searchOmdb)
                 updateMoviesFromInput()
                 true
             } else {

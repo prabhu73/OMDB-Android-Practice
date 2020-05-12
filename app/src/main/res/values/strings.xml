@@ -8,4 +8,8 @@
     <string name="type">Type:</string>
     <string name="released">Released:</string>
     <string name="director_details">Director details:</string>
+
+    <string name="no_connection">No Connection</string>
+    <string name="enable_internet_text">Please check you internet connection and enable it.</string>
+    <string name="enable">Enable</string>
 </resources>

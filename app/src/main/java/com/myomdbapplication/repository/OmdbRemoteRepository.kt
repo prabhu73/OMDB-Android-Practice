@@ -3,7 +3,7 @@ package com.myomdbapplication.repository
 import androidx.paging.LivePagedListBuilder
 import com.myomdbapplication.db.OmdbLocalCache
 import com.myomdbapplication.models.MovieDetailsResponse
-import com.myomdbapplication.models.MoviesResponseResult
+import com.myomdbapplication.models.OmdbPagingResponse
 import com.myomdbapplication.repository.api.NetworkFlowHandler
 import com.myomdbapplication.repository.api.OMDBRemoteServices
 import com.myomdbapplication.repository.api.ResponseState
@@ -21,17 +21,23 @@ class OmdbRemoteRepository(
     private val cache: OmdbLocalCache
 ) {
 
-    fun getMoviesBySearch(searchTerm: String): MoviesResponseResult {
+    private lateinit var boundaryCallback : OmdbBoundaryCallback
+
+    fun getMoviesBySearch(searchTerm: String): OmdbPagingResponse {
         // Single truth data (Locally stored data will be passed to pagging library)
         val dataSourceFactory = cache.moviesByNameQuery(searchTerm)
 
-        val boundaryCallback = MoviesBoundaryCallback(searchTerm, apiService, cache)
-        val networkError = boundaryCallback.networkErrors
+        boundaryCallback = OmdbBoundaryCallback(searchTerm, apiService, cache)
+        val networkError = boundaryCallback.networkState
 
         val data = LivePagedListBuilder(dataSourceFactory, DATABASE_PAGE_SIZE)
             .setBoundaryCallback(boundaryCallback)
             .build()
-        return MoviesResponseResult(data, networkError)
+        return OmdbPagingResponse(data, networkError!!)
+    }
+
+    fun retryBoundaryCallback() {
+        boundaryCallback.retryPetitions()
     }
 
     fun getMovieDetailsById(key: String, id: String): Flow<ResponseState<MovieDetailsResponse>> =

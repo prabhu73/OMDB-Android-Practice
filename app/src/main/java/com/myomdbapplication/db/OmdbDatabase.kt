@@ -18,20 +18,21 @@ abstract class OmdbDatabase: RoomDatabase() {
     abstract fun omdbDao(): OmdbDao
 }
 
-val omdbModule = module {
+val omdbModule by lazy {
+    module {
+        fun provideOmdbDatabase(application: Application): OmdbDatabase =
+            synchronized(this) {
+                Room.databaseBuilder(application, OmdbDatabase::class.java, "omdb.db").build()
+            }
 
-    fun provideOmdbDatabase(application: Application): OmdbDatabase =
-        synchronized(this) {
-            Room.databaseBuilder(application, OmdbDatabase::class.java, "omdb.db").build()
-        }
+        fun provideOmdbDao(database: OmdbDatabase): OmdbDao =
+            database.omdbDao()
 
-    fun provideOmdbDao(database: OmdbDatabase): OmdbDao =
-        database.omdbDao()
+        fun provideOmdbLocalCache(omdbDao: OmdbDao): OmdbLocalCache =
+            OmdbLocalCache(omdbDao, Executors.newSingleThreadExecutor())
 
-    fun provideOmdbLocalCache(omdbDao: OmdbDao): OmdbLocalCache =
-        OmdbLocalCache(omdbDao, Executors.newSingleThreadExecutor())
-
-    single { provideOmdbDatabase(androidApplication()) }
-    single { provideOmdbDao(get()) }
-    single { provideOmdbLocalCache(get()) }
+        single { provideOmdbDatabase(androidApplication()) }
+        single { provideOmdbDao(get()) }
+        single { provideOmdbLocalCache(get()) }
+    }
 }

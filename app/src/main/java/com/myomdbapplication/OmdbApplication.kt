@@ -20,7 +20,7 @@ class OmdbApplication : Application() {
         startKoin {
             androidLogger(Level.INFO)
             androidContext(applicationContext)
-            modules(restServiceModule, omdbViewModel, omdbModule)
+            modules(AppKoinModule.getModules())
         }
     }
 }

@@ -1,15 +1,13 @@
 package com.myomdbapplication.db
 
 import androidx.paging.DataSource
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.myomdbapplication.models.MovieItem
 
 @Dao
 interface OmdbDao {
 
+    @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(movies: List<MovieItem>)
 

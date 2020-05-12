@@ -6,24 +6,34 @@
     android:layout_height="wrap_content"
     android:id="@+id/movieItemView"
     app:cardCornerRadius="@dimen/dp10"
-    app:cardElevation="@dimen/dp4"
     app:cardMaxElevation="@dimen/dp4"
-    android:layout_marginBottom="@dimen/dp6"
-    android:background="@drawable/drawable_white_rounded_corner_background">
+    app:cardElevation="@dimen/dp4"
+    android:layout_marginTop="@dimen/dp6"
+    app:cardBackgroundColor="@android:color/transparent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/dp10">
+        android:padding="@dimen/dp10"
+        android:background="@drawable/drawable_rounded_blue_stroke_corner">
 
-        <ImageView
-            android:id="@+id/posterImageView"
-            android:layout_width="@dimen/dp80"
-            android:layout_height="@dimen/dp120"
-            android:scaleType="fitXY"
+        <FrameLayout
+            android:id="@+id/fl3"
+            android:layout_width="85dp"
+            android:layout_height="125dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_launcher_foreground" />
+            android:background="@drawable/drawable_rounded_blue_stroke_corner">
+            <ImageView
+                android:id="@+id/posterImageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_margin="@dimen/dp5"
+                app:srcCompat="@drawable/ic_launcher_foreground" />
+        </FrameLayout>
 
         <TextView
             android:id="@+id/showTitle"
@@ -32,12 +42,12 @@
             android:layout_marginStart="@dimen/dp16"
             android:layout_marginEnd="@dimen/dp16"
             android:fontFamily="@font/exo_bold"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:textSize="@dimen/sp16"
             app:layout_constraintBottom_toTopOf="@+id/tv2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/posterImageView"
+            app:layout_constraintStart_toEndOf="@+id/fl3"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed" />
 
@@ -47,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp10"
             android:fontFamily="@font/exo_semibold"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:textSize="@dimen/sp15"
             app:layout_constraintBottom_toTopOf="@+id/tv1"
             app:layout_constraintStart_toStartOf="@+id/showTitle"
@@ -59,7 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp10"
             android:fontFamily="@font/exo_medium"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:textSize="@dimen/sp13"
             app:layout_constraintBottom_toBottomOf="@+id/tv2"
             app:layout_constraintEnd_toEndOf="parent"
@@ -72,7 +82,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp5"
             android:fontFamily="@font/exo_semibold"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:textSize="@dimen/sp15"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tv2"
@@ -84,7 +94,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp10"
             android:fontFamily="@font/exo_medium"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:textSize="@dimen/sp13"
             app:layout_constraintBottom_toBottomOf="@+id/tv1"
             app:layout_constraintEnd_toEndOf="parent"

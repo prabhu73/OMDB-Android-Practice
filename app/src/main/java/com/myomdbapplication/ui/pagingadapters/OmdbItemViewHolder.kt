@@ -23,7 +23,7 @@ class OmdbItemViewHolder(private val view: LayoutMovieItemBinding, onClick: (Mov
     @SuppressLint("SetTextI18n")
     fun bind(movie: MovieItem) {
         this.movie = movie
-        Glide.with(view.posterImageView).load(movie.poster).into(view.posterImageView)
+        Glide.with(view.posterImageView).load(movie.poster).centerCrop().placeholder(R.drawable.ic_default_movie_icon).into(view.posterImageView)
         view.showTitle.text = movie.title
         view.showType.text = "${view.root.context.resources.getString(R.string.type)} ${movie.type}"
         view.showYear.text = "${view.root.context.resources.getString(R.string.released)} ${movie.year}"
