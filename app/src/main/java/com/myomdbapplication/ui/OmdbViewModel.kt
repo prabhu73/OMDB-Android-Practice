@@ -13,7 +13,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import org.koin.android.viewmodel.dsl.viewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 @ExperimentalCoroutinesApi
@@ -51,6 +51,7 @@ class OmdbViewModel constructor(private val repository: OmdbRemoteRepository) : 
     }
 
     val connectivityState = MutableLiveData<Boolean>()
+    val activityCommunication = MutableLiveData<SnackbarAction>()
 
     val movies: LiveData<PagedList<MovieItem>> = Transformations.switchMap(omdbPaging) { it.data }
     val networkErrors: LiveData<NetworkState> = Transformations.switchMap(omdbPaging) {

@@ -11,5 +11,7 @@
 
     <string name="no_connection">No Connection</string>
     <string name="enable_internet_text">Please check you internet connection and enable it.</string>
+    <string name="retry_api_details">Please retry the communication again</string>
+    <string name="retry">Retry</string>
     <string name="enable">Enable</string>
 </resources>

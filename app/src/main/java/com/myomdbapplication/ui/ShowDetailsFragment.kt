@@ -18,7 +18,8 @@ import com.myomdbapplication.repository.api.ResponseState
 import kotlinx.android.synthetic.main.fragment_show_details.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
-import org.koin.android.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import java.lang.NumberFormatException
 
 @InternalCoroutinesApi
 @ExperimentalCoroutinesApi
@@ -49,9 +50,24 @@ class ShowDetailsFragment : Fragment() {
                 is ResponseState.Loading -> handleShimmerVisibility(true)
                 is ResponseState.Failed -> {
                     handleShimmerVisibility(false)
+                    try {
+                        when(it.data.toInt()) {
+                            in 400..499 -> (activity as OmdbMainActivity)
+                                .displaySnackBar(R.string.retry_api_details, R.string.retry,
+                                    SnackbarAction.API_RETRY)
+                            504 -> (activity as OmdbMainActivity)
+                            .displaySnackBar(R.string.enable_internet_text, R.string.enable,
+                                SnackbarAction.NETWORK_NOT_AVAILABLE)
+                        }
+                    }catch (e: NumberFormatException) {
+                        e.printStackTrace()
+                    }
                     Toast.makeText(context, "\uD83D\uDE28 Wooops $it", Toast.LENGTH_LONG).show()
                 }
             }
+        })
+        viewModel.activityCommunication.observe(viewLifecycleOwner, Observer {
+            if(it != null && it == SnackbarAction.API_RETRY) viewModel.getMovieDetailsById()
         })
     }
 

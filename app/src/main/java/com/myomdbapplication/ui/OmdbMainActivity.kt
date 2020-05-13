@@ -12,9 +12,9 @@ import com.myomdbapplication.connectivity.ConnectivityProvider.ConnectivityState
 import com.myomdbapplication.connectivity.ConnectivityProvider.ConnectivityStateListener
 import com.myomdbapplication.connectivity.hasInternet
 import com.myomdbapplication.databinding.ActivityOmdbMainBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
-import org.koin.android.viewmodel.ext.android.viewModel
 
 enum class SnackbarAction {
     NETWORK_NOT_AVAILABLE,
@@ -52,8 +52,7 @@ class OmdbMainActivity : AppCompatActivity(), ConnectivityStateListener {
                     )
                     viewModel.isNetworkNotAvailable = true
                 }
-                SnackbarAction.API_RETRY -> {
-                }
+                SnackbarAction.API_RETRY -> viewModel.activityCommunication.postValue(SnackbarAction.API_RETRY)
             }
             if (snackbar.isShown) snackbar.dismiss()
         }
